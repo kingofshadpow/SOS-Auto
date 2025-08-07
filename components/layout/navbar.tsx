@@ -52,8 +52,8 @@ export default function Navbar() {
     { name: "Accueil", href: "/" },
     { name: "Catalogue", href: "/catalog" },
     { name: "Conseil Expert", href: "/conseil-expert" },
-    { name: "À Propos", href: "/a-propos" },
-    { name: "Contact", href: "/contact" },
+    { name: "À Propos", href: "#about" },
+    { name: "Contact", href: "#contact" },
   ]
 
   return (

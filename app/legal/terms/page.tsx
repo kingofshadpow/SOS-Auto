@@ -1,169 +1,102 @@
 "use client"
 
-import Navbar from '@/components/layout/navbar'
-import Footer from '@/components/layout/footer'
+import Navbar from "@/components/layout/navbar"
+import Footer from "@/components/layout/footer"
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navbar />
-      
-      <div className="pt-20 pb-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
-              Conditions Générales d'Utilisation
+      <main className="pt-20 pb-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+              Conditions Générales de Vente
             </h1>
-            <p className="text-gray-600 dark:text-gray-400">
-              Dernière mise à jour : 1er janvier 2024
-            </p>
-          </div>
+            
+            <div className="prose prose-gray dark:prose-invert max-w-none">
+              <h2>Article 1 - Objet</h2>
+              <p>
+                Les présentes conditions générales de vente (CGV) régissent les relations contractuelles entre SOS Pièce Auto, 
+                société par actions simplifiée au capital de 50 000 euros, immatriculée au RCS de Paris sous le numéro 
+                123 456 789, dont le siège social est situé 123 Rue de l'Automobile, 75001 Paris, et ses clients.
+              </p>
 
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 space-y-8">
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  1. Objet
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Les présentes conditions générales d'utilisation (CGU) régissent l'utilisation du site web 
-                  SOS Pièce Auto et les services proposés par la société SOS Pièce Auto SARL.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  L'utilisation du site implique l'acceptation pleine et entière des présentes CGU.
-                </p>
-              </section>
+              <h2>Article 2 - Produits</h2>
+              <p>
+                SOS Pièce Auto propose à la vente des pièces automobiles neuves et d'occasion, des accessoires et des 
+                équipements pour véhicules. Les produits proposés sont ceux qui figurent sur le site internet au jour de 
+                la consultation par l'acheteur et dans la limite des stocks disponibles.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  2. Mentions légales
-                </h2>
-                <div className="text-gray-700 dark:text-gray-300 space-y-2">
-                  <p><strong>Raison sociale :</strong> SOS Pièce Auto SARL</p>
-                  <p><strong>Siège social :</strong> 123 Avenue des Pièces Auto, 94200 Ivry-sur-Seine</p>
-                  <p><strong>SIRET :</strong> 123 456 789 00012</p>
-                  <p><strong>Capital social :</strong> 50 000 €</p>
-                  <p><strong>Directeur de publication :</strong> Pierre Dubois</p>
-                </div>
-              </section>
+              <h2>Article 3 - Prix</h2>
+              <p>
+                Les prix sont indiqués en euros toutes taxes comprises (TTC). Ils s'entendent hors frais de livraison qui 
+                sont facturés en supplément selon les modalités indiquées sur le site. SOS Pièce Auto se réserve le droit 
+                de modifier ses prix à tout moment, étant toutefois entendu que le prix figurant au catalogue le jour de la 
+                commande sera le seul applicable à l'acheteur.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  3. Accès au site
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Le site est accessible gratuitement à tout utilisateur disposant d'un accès à Internet. 
-                  Tous les frais supportés par l'utilisateur pour accéder au service sont à sa charge.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  SOS Pièce Auto se réserve le droit de modifier, suspendre ou interrompre l'accès au site 
-                  à tout moment sans préavis.
-                </p>
-              </section>
+              <h2>Article 4 - Commandes</h2>
+              <p>
+                Les commandes peuvent être passées sur le site internet www.sospiece-auto.fr ou par téléphone au 
+                +33 1 23 45 67 89. Toute commande implique l'acceptation pleine et entière des présentes conditions 
+                générales de vente. La vente ne sera considérée comme définitive qu'après envoi à l'acheteur de la 
+                confirmation de l'acceptation de la commande par SOS Pièce Auto.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  4. Utilisation du site
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  L'utilisateur s'engage à utiliser le site conformément aux présentes CGU et à la législation 
-                  en vigueur. Il est notamment interdit de :
-                </p>
-                <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
-                  <li>Utiliser le site à des fins illégales ou non autorisées</li>
-                  <li>Tenter d'accéder aux systèmes informatiques de manière non autorisée</li>
-                  <li>Diffuser des contenus illicites, diffamatoires ou portant atteinte aux droits de tiers</li>
-                  <li>Perturber le fonctionnement du site</li>
-                </ul>
-              </section>
+              <h2>Article 5 - Paiement</h2>
+              <p>
+                Le paiement s'effectue par carte bancaire, virement bancaire ou chèque. En cas de paiement par carte 
+                bancaire, le débit s'effectue au moment de l'expédition de la commande. En cas de paiement par chèque, 
+                la commande ne sera expédiée qu'après encaissement du chèque.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  5. Commandes et paiements
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Les commandes passées sur le site sont soumises aux conditions générales de vente. 
-                  Le paiement s'effectue par carte bancaire ou PayPal de manière sécurisée.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Les prix sont indiqués en euros TTC. SOS Pièce Auto se réserve le droit de modifier 
-                  ses prix à tout moment.
-                </p>
-              </section>
+              <h2>Article 6 - Livraison</h2>
+              <p>
+                Les livraisons sont effectuées à l'adresse indiquée par l'acheteur lors de sa commande. Les délais de 
+                livraison sont donnés à titre indicatif et ne sont pas garantis. En cas de retard de livraison, l'acheteur 
+                pourra annuler sa commande dans les conditions prévues par la loi.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  6. Propriété intellectuelle
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  L'ensemble des éléments du site (textes, images, logos, etc.) sont protégés par le droit 
-                  d'auteur et appartiennent à SOS Pièce Auto ou à ses partenaires.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Toute reproduction, représentation, modification ou adaptation sans autorisation expresse 
-                  est interdite.
-                </p>
-              </section>
+              <h2>Article 7 - Garanties</h2>
+              <p>
+                Tous nos produits bénéficient de la garantie légale de conformité et de la garantie contre les vices cachés. 
+                En outre, certains produits peuvent bénéficier d'une garantie commerciale spécifique dont les modalités 
+                sont précisées sur la fiche produit.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  7. Protection des données personnelles
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  SOS Pièce Auto s'engage à protéger les données personnelles de ses utilisateurs conformément 
-                  au RGPD et à la loi Informatique et Libertés.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Pour plus d'informations, consultez notre politique de confidentialité.
-                </p>
-              </section>
+              <h2>Article 8 - Droit de rétractation</h2>
+              <p>
+                Conformément aux dispositions du Code de la consommation, l'acheteur dispose d'un délai de 14 jours 
+                francs pour exercer son droit de rétractation sans avoir à justifier de motifs ni à payer de pénalités, 
+                à l'exception des frais de retour.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  8. Responsabilité
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  SOS Pièce Auto met tout en œuvre pour assurer la disponibilité et la sécurité du site, 
-                  mais ne peut garantir un fonctionnement sans interruption ni erreur.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  La responsabilité de SOS Pièce Auto ne saurait être engagée en cas de dommages indirects 
-                  ou de perte de données.
-                </p>
-              </section>
+              <h2>Article 9 - Responsabilité</h2>
+              <p>
+                SOS Pièce Auto ne saurait être tenue responsable de l'inexécution du contrat conclu en cas de rupture de 
+                stock ou d'indisponibilité du produit, de force majeure, de perturbation ou grève totale ou partielle des 
+                services postaux et moyens de transport et/ou communications.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  9. Droit applicable et juridiction
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Les présentes CGU sont soumises au droit français. En cas de litige, les tribunaux français 
-                  seront seuls compétents.
-                </p>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Conformément à la réglementation, l'utilisateur peut recourir à une médiation conventionnelle 
-                  ou à tout autre mode alternatif de règlement des différends.
-                </p>
-              </section>
+              <h2>Article 10 - Litiges</h2>
+              <p>
+                Tous les litiges auxquels les opérations d'achat et de vente conclues en application des présentes 
+                conditions générales de vente pourraient donner lieu, concernant tant leur validité, leur interprétation, 
+                leur exécution, leur résiliation, leurs conséquences et leurs suites, seront soumis aux tribunaux compétents 
+                dans les conditions de droit commun.
+              </p>
 
-              <section>
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  10. Contact
-                </h2>
-                <p className="text-gray-700 dark:text-gray-300">
-                  Pour toute question relative aux présentes CGU, vous pouvez nous contacter :
+              <div className="mt-8 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  Dernière mise à jour : 15 janvier 2024
                 </p>
-                <div className="text-gray-700 dark:text-gray-300 mt-4 space-y-1">
-                  <p><strong>Email :</strong> contact@sospieceauto.fr</p>
-                  <p><strong>Téléphone :</strong> 01 23 45 67 89</p>
-                  <p><strong>Adresse :</strong> 123 Avenue des Pièces Auto, 94200 Ivry-sur-Seine</p>
-                </div>
-              </section>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
+      </main>
       <Footer />
     </div>
   )

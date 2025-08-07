@@ -1,117 +1,107 @@
-"use client"
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
+import type { Product } from "@/types/product"
 
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-
-export interface OrderItem {
+interface Order {
   id: string
-  name: string
-  price: number
-  quantity: number
-  image: string
-  brand: string
-}
-
-export interface Order {
-  id: string
-  userId: string
-  items: OrderItem[]
-  subtotal: number
-  shipping: number
+  date: string
+  status: "pending" | "processing" | "shipped" | "delivered" | "cancelled"
+  items: Array<{
+    product: Product
+    quantity: number
+    price: number
+  }>
   total: number
-  status: 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'
   shippingAddress: {
-    firstName: string
-    lastName: string
     street: string
     city: string
     postalCode: string
     country: string
-    phone: string
   }
-  paymentMethod: string
-  createdAt: string
-  estimatedDelivery?: string
+  trackingNumber?: string
 }
 
 interface OrderState {
   orders: Order[]
   currentOrder: Order | null
-  createOrder: (orderData: Omit<Order, 'id' | 'createdAt'>) => string
-  getOrdersByUserId: (userId: string) => Order[]
-  getOrderById: (orderId: string) => Order | null
-  updateOrderStatus: (orderId: string, status: Order['status']) => void
+  addOrder: (order: Omit<Order, "id" | "date">) => string
+  getOrderById: (id: string) => Order | undefined
 }
 
-// Mock orders for testing
 const mockOrders: Order[] = [
   {
-    id: 'ORD-2024-001',
-    userId: '1',
+    id: "CMD-2024-001",
+    date: "2024-01-15",
+    status: "delivered",
     items: [
       {
-        id: '1',
-        name: 'Plaquettes de frein avant',
-        price: 45.99,
+        product: {
+          id: "1",
+          name: "Plaquettes de Frein Avant",
+          brand: "Renault",
+          category: "Freinage",
+          subCategory: "Plaquettes de Frein",
+          partNumber: "REN-PF-7701208265",
+          price: 45.99,
+          description: "Plaquettes de frein avant haute performance",
+          specifications: {},
+          compatibility: { brands: ["Renault"], models: ["Clio"], years: [2020] },
+          images: [],
+          stock: 25,
+          lowStockThreshold: 10,
+          restockDate: null,
+          rating: 4.8,
+          reviewCount: 156,
+        },
         quantity: 1,
-        image: '/images/brake-pads.jpg',
-        brand: 'Bosch'
-      },
-      {
-        id: '2',
-        name: 'Filtre à huile',
-        price: 12.50,
-        quantity: 2,
-        image: '/images/oil-filter.jpg',
-        brand: 'Mann'
+        price: 45.99
       }
     ],
-    subtotal: 70.99,
-    shipping: 8.90,
-    total: 79.89,
-    status: 'delivered',
+    total: 51.98,
     shippingAddress: {
-      firstName: 'Jean',
-      lastName: 'Dupont',
-      street: '123 Rue de la Paix',
-      city: 'Paris',
-      postalCode: '75001',
-      country: 'France',
-      phone: '06 12 34 56 78'
+      street: "123 Rue de la République",
+      city: "Paris",
+      postalCode: "75001",
+      country: "France"
     },
-    paymentMethod: 'Carte bancaire',
-    createdAt: '2024-01-20T14:30:00Z',
-    estimatedDelivery: '2024-01-25T00:00:00Z'
+    trackingNumber: "FR123456789"
   },
   {
-    id: 'ORD-2024-002',
-    userId: '1',
+    id: "CMD-2024-002",
+    date: "2024-01-20",
+    status: "shipped",
     items: [
       {
-        id: '3',
-        name: 'Amortisseur arrière',
-        price: 89.99,
+        product: {
+          id: "2",
+          name: "Filtre à Huile",
+          brand: "BMW",
+          category: "Moteur",
+          subCategory: "Filtres à Huile",
+          partNumber: "BMW-FO-11427566327",
+          price: 28.5,
+          description: "Filtre à huile original BMW",
+          specifications: {},
+          compatibility: { brands: ["BMW"], models: ["Série 3"], years: [2018] },
+          images: [],
+          stock: 42,
+          lowStockThreshold: 15,
+          restockDate: null,
+          rating: 4.9,
+          reviewCount: 203,
+        },
         quantity: 2,
-        image: '/images/shock-absorber.jpg',
-        brand: 'Monroe'
+        price: 28.5
       }
     ],
-    subtotal: 179.98,
-    shipping: 12.90,
-    total: 192.88,
-    status: 'shipped',
+    total: 62.99,
     shippingAddress: {
-      firstName: 'Jean',
-      lastName: 'Dupont',
-      street: '123 Rue de la Paix',
-      city: 'Paris',
-      postalCode: '75001',
-      country: 'France',
-      phone: '06 12 34 56 78'
+      street: "123 Rue de la République",
+      city: "Paris",
+      postalCode: "75001",
+      country: "France"
     },
-    paymentMethod: 'PayPal',
-    createdAt: '2024-02-01T09:15:00Z',
-    estimatedDelivery: '2024-02-05T00:00:00Z'
+    trackingNumber: "FR987654321"
   }
 ]
 
@@ -121,40 +111,28 @@ export const useOrderStore = create<OrderState>()(
       orders: mockOrders,
       currentOrder: null,
 
-      createOrder: (orderData) => {
-        const orderId = `ORD-${new Date().getFullYear()}-${String(Date.now()).slice(-3)}`
+      addOrder: (orderData) => {
+        const orderId = `CMD-${Date.now()}`
         const newOrder: Order = {
           ...orderData,
           id: orderId,
-          createdAt: new Date().toISOString()
+          date: new Date().toISOString().split('T')[0]
         }
-        
-        set(state => ({
-          orders: [...state.orders, newOrder],
+
+        set((state) => ({
+          orders: [newOrder, ...state.orders],
           currentOrder: newOrder
         }))
-        
+
         return orderId
       },
 
-      getOrdersByUserId: (userId) => {
-        return get().orders.filter(order => order.userId === userId)
-      },
-
-      getOrderById: (orderId) => {
-        return get().orders.find(order => order.id === orderId) || null
-      },
-
-      updateOrderStatus: (orderId, status) => {
-        set(state => ({
-          orders: state.orders.map(order =>
-            order.id === orderId ? { ...order, status } : order
-          )
-        }))
+      getOrderById: (id) => {
+        return get().orders.find(order => order.id === id)
       }
     }),
     {
-      name: 'order-storage'
+      name: "order-storage",
     }
   )
 )

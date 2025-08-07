@@ -1,14 +1,11 @@
-"use client"
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
-
-export interface User {
+interface User {
   id: string
-  email: string
   firstName: string
   lastName: string
-  role: 'client' | 'admin'
+  email: string
   phone?: string
   address?: {
     street: string
@@ -16,109 +13,72 @@ export interface User {
     postalCode: string
     country: string
   }
-  createdAt: string
 }
 
 interface AuthState {
-  isAuthenticated: boolean
   user: User | null
+  isAuthenticated: boolean
   login: (email: string, password: string) => Promise<boolean>
-  register: (userData: Omit<User, 'id' | 'createdAt'>) => Promise<boolean>
+  register: (userData: Omit<User, "id">) => Promise<boolean>
   logout: () => void
-  updateUser: (userData: Partial<User>) => void
+  updateProfile: (userData: Partial<User>) => void
 }
-
-// Mock users for testing
-const mockUsers: User[] = [
-  {
-    id: '1',
-    email: 'client@test.com',
-    firstName: 'Jean',
-    lastName: 'Dupont',
-    role: 'client',
-    phone: '06 12 34 56 78',
-    address: {
-      street: '123 Rue de la Paix',
-      city: 'Paris',
-      postalCode: '75001',
-      country: 'France'
-    },
-    createdAt: '2024-01-15T10:00:00Z'
-  },
-  {
-    id: '2',
-    email: 'admin@test.com',
-    firstName: 'Marie',
-    lastName: 'Martin',
-    role: 'admin',
-    phone: '06 98 76 54 32',
-    createdAt: '2024-01-01T08:00:00Z'
-  }
-]
 
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
-      isAuthenticated: false,
       user: null,
+      isAuthenticated: false,
 
       login: async (email: string, password: string) => {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 1000))
         
-        // Mock authentication - accept any password for demo
-        const user = mockUsers.find(u => u.email === email)
-        
-        if (user) {
-          set({ isAuthenticated: true, user })
-          return true
+        // Mock successful login
+        const mockUser: User = {
+          id: "1",
+          firstName: "Jean",
+          lastName: "Dupont",
+          email: email,
+          phone: "06 12 34 56 78",
+          address: {
+            street: "123 Rue de la République",
+            city: "Paris",
+            postalCode: "75001",
+            country: "France"
+          }
         }
-        
-        return false
+
+        set({ user: mockUser, isAuthenticated: true })
+        return true
       },
 
       register: async (userData) => {
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 1000))
         
-        // Check if user already exists
-        const existingUser = mockUsers.find(u => u.email === userData.email)
-        if (existingUser) {
-          return false
-        }
-        
-        // Create new user
         const newUser: User = {
-          ...userData,
           id: Date.now().toString(),
-          createdAt: new Date().toISOString()
+          ...userData
         }
-        
-        mockUsers.push(newUser)
-        set({ isAuthenticated: true, user: newUser })
+
+        set({ user: newUser, isAuthenticated: true })
         return true
       },
 
       logout: () => {
-        set({ isAuthenticated: false, user: null })
+        set({ user: null, isAuthenticated: false })
       },
 
-      updateUser: (userData) => {
-        const { user } = get()
-        if (user) {
-          const updatedUser = { ...user, ...userData }
-          set({ user: updatedUser })
-          
-          // Update in mock data
-          const userIndex = mockUsers.findIndex(u => u.id === user.id)
-          if (userIndex !== -1) {
-            mockUsers[userIndex] = updatedUser
-          }
+      updateProfile: (userData) => {
+        const currentUser = get().user
+        if (currentUser) {
+          set({ user: { ...currentUser, ...userData } })
         }
       }
     }),
     {
-      name: 'auth-storage'
+      name: "auth-storage",
     }
   )
 )
